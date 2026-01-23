@@ -1,0 +1,55 @@
+============================================================
+AGRICOM - GDELT News Analysis Report
+============================================================
+
+Generated: 2026-01-22 20:16
+
+----------------------------------------
+ARTICLE SUMMARY
+----------------------------------------
+Total articles collected: 159
+Date range: 2025-10-24 to 2026-01-22
+Unique sources: 69
+
+Articles by topic:
+  - Organic Food: 101
+  - Sustainable Food: 57
+  - Organic Produce: 1
+
+----------------------------------------
+SENTIMENT SUMMARY
+----------------------------------------
+  - Organic Food: 0.32 (Positive)
+  - Organic Produce: 0.02 (Positive)
+  - Food Safety: -0.04 (Negative)
+  - Sustainable Food: 0.84 (Positive)
+
+----------------------------------------
+TOP NEWS SOURCES
+----------------------------------------
+  - finanznachrichten.de: 25 articles
+  - merkur.de: 12 articles
+  - topagrar.com: 8 articles
+  - hna.de: 7 articles
+  - badische-zeitung.de: 4 articles
+  - wa.de: 4 articles
+  - come-on.de: 4 articles
+  - op-online.de: 4 articles
+  - tz.de: 4 articles
+  - fnp.de: 4 articles
+
+----------------------------------------
+SAMPLE HEADLINES
+----------------------------------------
+  [2025-11-11] Bio - Lebensmittel sind so gefragt wie nie...
+  [2025-11-11] Bio - Lebensmittel sind so gefragt wie nie - Wirtschaft - Zeitungsverl...
+  [2025-11-11] Bio - Lebensmittel sind so gefragt wie nie...
+  [2025-11-18] Im Kreisseniorenzentrum in Kenzingen gibt es in Zukunft keine Bio - Ma...
+  [2025-11-16] Von ausbrechenden Schlachttieren und einer besiegten Krankheit : Das s...
+  [2025-11-11] Bio - Lebensmittel sind so gefragt wie nie...
+  [2025-11-04] Mordor Intelligence Private Limited : Organic Baby Food Market Expands...
+  [2025-11-11] Umsätze 2025 steigen deutlich : Bio - Lebensmittel sind so gefragt wie...
+  [2025-11-11] Einkaufen : Bio - Lebensmittel sind so gefragt wie nie - Wirtschaft...
+  [2025-11-11] Rekordjahr für Bio - Lebensmittel : Nachfrage übertrifft heimische Pro...
+
+============================================================

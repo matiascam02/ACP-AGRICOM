@@ -1,0 +1,2 @@
+date_range,total_days,avg_temperature,min_temperature,max_temperature,total_rainy_days,rainy_day_pct,hot_days,cold_days,extreme_anomaly_days,avg_precipitation_mm,anomaly_very_cold_days,anomaly_cold_days,anomaly_normal_days,anomaly_warm_days,anomaly_very_warm_days
+2023-01-16 to 2026-02-04,1110,10.895765765765764,-13.2,37.6,375,33.78378378378378,153,187,76,1.86990990990991,39,238,577,216,40

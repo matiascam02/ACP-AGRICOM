@@ -1,0 +1,132 @@
+======================================================================
+AGRICOM - Berlin Neighborhood Segmentation Report
+======================================================================
+
+Generated: 2026-01-22 20:25
+
+--------------------------------------------------
+EXECUTIVE SUMMARY
+--------------------------------------------------
+
+Three Berlin neighborhoods have been identified as primary targets for
+organic produce demand forecasting, each representing distinct consumer
+segments with different motivations and purchasing behaviors.
+
+
+==================================================
+SEGMENT: MITTE
+==================================================
+
+Profile: Wealthy professionals
+Population: 384,172
+Average Income: EUR 42,000/year
+Median Age: 38
+Organic Affinity Score: 75%
+
+Key Characteristics:
+  - High disposable income
+  - International residents
+  - Premium quality seekers
+  - Convenience-oriented
+  - Restaurant/dining culture
+
+Market Infrastructure:
+  - Organic stores: 45
+  - Farmers markets: 8
+
+Green Party Vote (2021): 21.3%
+
+==================================================
+SEGMENT: CHARLOTTENBURG-WILMERSDORF
+==================================================
+
+Profile: Established families & creatives
+Population: 342,332
+Average Income: EUR 38,500/year
+Median Age: 45
+Organic Affinity Score: 65%
+
+Key Characteristics:
+  - Older demographic
+  - Cultural appreciation
+  - Quality over quantity
+  - Brand loyal
+  - Traditional shopping habits
+
+Market Infrastructure:
+  - Organic stores: 38
+  - Farmers markets: 6
+
+Green Party Vote (2021): 19.8%
+
+==================================================
+SEGMENT: FRIEDRICHSHAIN-KREUZBERG
+==================================================
+
+Profile: Eco-conscious & alternative
+Population: 289,201
+Average Income: EUR 28,000/year
+Median Age: 34
+Organic Affinity Score: 85%
+
+Key Characteristics:
+  - Younger demographic
+  - Highest environmental awareness
+  - Price-conscious but values-driven
+  - Local/community focused
+  - Anti-corporate sentiment
+
+Market Infrastructure:
+  - Organic stores: 52
+  - Farmers markets: 12
+
+Green Party Vote (2021): 32.4%
+
+==================================================
+TARGETING RECOMMENDATIONS
+==================================================
+
+1. FRIEDRICHSHAIN-KREUZBERG (Primary Target)
+   - Highest organic affinity (85%)
+   - Strongest environmental values
+   - Most farmers markets (12)
+   - Focus: Local sourcing, sustainability messaging
+   - Channel: Farmers markets, Bio Company, community events
+
+2. MITTE (Secondary Target)
+   - High income, premium positioning
+   - Convenience-driven purchases
+   - Focus: Quality, health benefits, convenience
+   - Channel: REWE Bio, delivery services, upscale organic shops
+
+3. CHARLOTTENBURG-WILMERSDORF (Tertiary Target)
+   - Quality-focused, brand loyal
+   - Traditional shopping preferences
+   - Focus: Product quality, trusted brands
+   - Channel: Established organic retailers, weekly markets
+
+
+==================================================
+RECOMMENDED DATA SIGNALS BY SEGMENT
+==================================================
+
+KREUZBERG:
+  - Google Trends: "bio", "nachhaltig", "wochenmarkt kreuzberg"
+  - Weather: Farmers market attendance (warm weekends)
+  - Events: Karneval der Kulturen, neighborhood festivals
+  - Social: r/berlin eco discussions, Instagram #kreuzbergfood
+
+MITTE:
+  - Google Trends: "bio lieferung", "organic delivery berlin"
+  - Weather: Less impactful (convenience-oriented)
+  - Events: Business conferences, tourist seasons
+  - Social: Expat forums, professional networks
+
+CHARLOTTENBURG:
+  - Google Trends: "bio qualität", "alnatura", "reformhaus"
+  - Weather: Weekend shopping patterns
+  - Events: Cultural events, opera/theater seasons
+  - Social: Traditional media, local newspapers
+
+
+======================================================================

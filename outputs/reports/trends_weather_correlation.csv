@@ -1,0 +1,9 @@
+trend_keyword,weather_variable,correlation,p_value,significant,n_observations
+supermarkt berlin: (Berlin),temp_mean,-0.12370287019273134,0.12269955283777248,False,157
+supermarkt berlin: (Berlin),temp_anomaly,0.0312862289869527,0.697292463719876,False,157
+supermarkt berlin: (Berlin),precip_total,0.04620807767537491,0.5655172650638476,False,157
+supermarkt berlin: (Berlin),rainy_days,0.05749976321965941,0.47442077010021727,False,157
+wochenmarkt berlin: (Berlin),temp_mean,0.15443007414683396,0.053465548370658006,False,157
+wochenmarkt berlin: (Berlin),temp_anomaly,-0.06957486055974851,0.3865702630279584,False,157
+wochenmarkt berlin: (Berlin),precip_total,0.013663821140431118,0.8651304785211895,False,157
+wochenmarkt berlin: (Berlin),rainy_days,0.03684240098553414,0.6468801829535367,False,157
