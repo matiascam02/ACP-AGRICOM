@@ -68,6 +68,6 @@ Full documentation available in Obsidian:
 ## Team
 
 - Project Manager: Jean-Christophe (Sean)
-- Students: Matias, Ryan/Tonghan, Arjun, Akos, Mei
+- Students: Matias, Ryan/Tonghan, Arjun, Akos, May
 - Mentor: Ryan Krog (Deutsche Bank)
 - Client Contact: Farah Ezzedine (AgriCom)
