@@ -3,6 +3,7 @@
 # Data Collection
 pytrends>=4.9.2
 requests>=2.31.0
+praw>=7.7.0  # Reddit API
 
 # Data Processing
 pandas>=2.0.0
@@ -16,6 +17,10 @@ plotly>=5.15.0
 # Statistical Analysis
 scipy>=1.10.0
 statsmodels>=0.14.0
+
+# Forecasting
+prophet>=1.1.0
+scikit-learn>=1.3.0
 
 # Utilities
 python-dotenv>=1.0.0

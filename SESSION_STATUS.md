@@ -1,5 +1,5 @@
 # AGRICOM Project - Session Status
-**Last Updated:** 2026-01-22 20:30
+**Last Updated:** 2026-01-27 14:10
 **Read this first in new sessions**
 
 ---
@@ -8,6 +8,7 @@
 - **Client:** AgriCom (organic produce company)
 - **Goal:** Predict organic produce demand in Berlin using alternative data signals
 - **Team:** 6 students + mentor Ryan Krog (ESMT)
+- **Timeline:** January - March 2026
 
 ---
 
@@ -21,29 +22,50 @@
 | GDELT Timeline | `data/raw/gdelt_timeline_20260122.csv` | 2,856 sentiment points |
 | Neighborhood Profiles | `outputs/reports/neighborhood_profiles.csv` | 3 segments |
 
-## Data Pending (Needs Team)
+## Data Partial (Needs Team)
 
 | Source | Status | Action |
 |--------|--------|--------|
-| Google Trends | Rate limited | **Team must download manually** |
-| Reddit | Script ready | Needs API credentials |
+| Google Trends | 8/20 keywords | **Team must download manually** |
+
+See `data/raw/google_trends/DOWNLOAD_GUIDE.md` for instructions.
 
 ---
 
-## Scripts Created
+## New Scripts Added (2026-01-27) 🆕
+
+### Data Collection
+| Script | Purpose | Requirements |
+|--------|---------|--------------|
+| `google_trends_serpapi.py` | Alternative trends collection | SerpAPI key (optional) |
+| `economic_indicators.py` | OECD, Eurostat, World Bank data | None (APIs are free) |
+| `social_signals.py` | YouTube, Reddit, Instagram | API keys (optional) |
+
+### Analysis
+| Script | Purpose |
+|--------|---------|
+| `data_merger.py` | Combines ALL sources into unified dataset |
+
+---
+
+## Scripts Overview
 
 ### Data Collection (`src/data_collection/`)
-- `weather.py` - Open-Meteo API (working)
-- `events.py` - Bundesliga + holidays (working)
-- `gdelt_news.py` - News sentiment (working)
+- `weather.py` - Open-Meteo API ✅
+- `events.py` - Bundesliga + holidays ✅
+- `gdelt_news.py` - News sentiment ✅
 - `google_trends_chunked.py` - Rate limited, use manual download
+- `google_trends_serpapi.py` - Alternative with SerpAPI 🆕
+- `economic_indicators.py` - Economic data 🆕
+- `social_signals.py` - Social media signals 🆕
 - `reddit_collector.py` - Ready, needs API credentials
 
 ### Analysis (`src/analysis/`)
-- `weather_analysis.py` - Weather visualizations
-- `trends_weather_analysis_v2.py` - Trends + weather correlation
-- `gdelt_analysis.py` - News sentiment analysis
-- `neighborhood_segmentation.py` - Berlin segment profiles
+- `weather_analysis.py` - Weather visualizations ✅
+- `trends_weather_analysis_v2.py` - Trends + weather correlation ✅
+- `gdelt_analysis.py` - News sentiment analysis ✅
+- `neighborhood_segmentation.py` - Berlin segment profiles ✅
+- `data_merger.py` - Unified dataset creation 🆕
 
 ---
 
@@ -55,41 +77,37 @@
 4. `trends_timeseries.png`
 5. `trends_weather_correlation.png`
 6. `trends_monthly_patterns.png`
-7. `gdelt_article_coverage.png`
-8. `gdelt_sentiment_analysis.png`
-9. `gdelt_source_analysis.png`
-10. `neighborhood_segmentation.png`
-11. `neighborhood_demand_drivers.png`
+7. `trends_seasonal_patterns.png`
+8. `trends_supermarkt_analysis.png`
+9. `gdelt_article_coverage.png`
+10. `gdelt_sentiment_analysis.png`
+11. `gdelt_source_analysis.png`
+12. `neighborhood_segmentation.png`
+13. `neighborhood_demand_drivers.png`
 
 ---
 
-## Obsidian Documentation
+## Key Findings So Far
 
-Location: `40_Projects/ESMT/AGRICOM/AGRICOM/claudes-work/`
-
-Key files:
-- `00_Index.md` - Work log and navigation
-- `07_Visualizations.md` - All charts with insights
-- `08_Additional_Data_Sources.md` - GDELT results
-- `09_Team_Tasks_and_Next_Steps.md` - **Team keyword assignments**
+1. **GDELT Sentiment:** Organic food coverage is positive (+0.32)
+2. **Weather:** 47% warm days (salads), 34% rainy days (convenience)
+3. **Trends:** Christmas spikes 2-3x, weak temp correlation (r=-0.12)
+4. **Segments:** Kreuzberg = primary target (85% organic affinity)
 
 ---
 
 ## Immediate Next Steps
 
-### 1. Team Action (Manual)
-Each team member downloads 2-3 Google Trends keywords:
-- Go to trends.google.com
-- Search keyword → Germany → 5 years
-- Download CSV → save to `data/raw/google_trends/`
+### 1. Team Action: Download Google Trends ⏰
+See `data/raw/google_trends/DOWNLOAD_GUIDE.md`
 
-**Keywords assigned in:** `claudes-work/09_Team_Tasks_and_Next_Steps.md`
+**Deadline:** Before next team meeting
 
 ### 2. After Team Uploads Trends
 ```bash
-cd /Users/matiascam/Documents/2_Education/ESMT/AGRICOM/agricom_project
-source venv/bin/activate
-python src/analysis/trends_weather_analysis_v2.py
+cd ACP-AGRICOM
+pip install -r requirements.txt
+python src/analysis/data_merger.py
 ```
 
 ### 3. Build Forecast Model
@@ -100,23 +118,48 @@ python src/analysis/trends_weather_analysis_v2.py
 
 ---
 
-## Key Findings So Far
+## Meeting Preparation
 
-1. **GDELT Sentiment:** Organic food coverage is positive (+0.32), "Bio-Lebensmittel sind so gefragt wie nie"
-2. **Weather:** 47% warm days (salads), 34% rainy days (convenience)
-3. **Trends:** Christmas spikes 2-3x, weak temp correlation (r=-0.12)
-4. **Segments:** Kreuzberg = primary target (85% organic affinity)
+See `MEETING_PREP.md` for:
+- Team meeting agenda
+- Action items by person
+- Questions for mentor/AgriCom
+- Project timeline
 
 ---
 
-## Virtual Environment
+## Virtual Environment Setup
 
 ```bash
-cd /Users/matiascam/Documents/2_Education/ESMT/AGRICOM/agricom_project
-source venv/bin/activate
+cd ACP-AGRICOM
+python -m venv venv
+source venv/bin/activate  # or: venv\Scripts\activate on Windows
+pip install -r requirements.txt
 ```
 
-Installed: pandas, numpy, matplotlib, seaborn, scipy, pytrends, gdeltdoc, praw
+---
+
+## Quick Commands
+
+```bash
+# Check trends collection status
+python src/data_collection/google_trends_serpapi.py --status
+
+# Generate download guide
+python src/data_collection/google_trends_serpapi.py --guide
+
+# Collect economic data
+python src/data_collection/economic_indicators.py
+
+# Merge all data (after trends uploaded)
+python src/analysis/data_merger.py
+
+# Run weather analysis
+python src/analysis/weather_analysis.py
+
+# Run GDELT analysis
+python src/analysis/gdelt_analysis.py
+```
 
 ---
 
@@ -125,4 +168,11 @@ Installed: pandas, numpy, matplotlib, seaborn, scipy, pytrends, gdeltdoc, praw
 1. Has team uploaded Google Trends data?
 2. Reddit API credentials available?
 3. Ready to build forecast model?
-4. Need presentation materials?
+4. Need presentation materials for midpoint?
+
+---
+
+## Repository
+
+- **GitHub:** https://github.com/matiascam02/ACP-AGRICOM
+- **Obsidian Docs:** `40_Projects/ESMT/AGRICOM/AGRICOM/claudes-work/`
