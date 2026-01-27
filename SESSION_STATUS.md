@@ -1,5 +1,5 @@
 # AGRICOM Project - Session Status
-**Last Updated:** 2026-01-27 14:10
+**Last Updated:** 2026-01-27 14:55
 **Read this first in new sessions**
 
 ---
@@ -12,6 +12,28 @@
 
 ---
 
+## ✅ LATEST: Forecast Model Complete! (2026-01-27)
+
+**New deliverables:**
+- `src/analysis/demand_forecast.py` - Full forecasting pipeline
+- `outputs/forecasts/demand_forecast_20260127.csv` - 12-week forecast
+- `outputs/figures/demand_forecast_20260127.png` - Forecast visualization
+- `data/raw/economic_indicators_20260127.csv` - Economic data (inflation, GDP, food prices)
+
+**Model Performance (on 90-day holdout):**
+- Ridge Regression: MAE 3.96, R² 0.818 ⭐ Best
+- Random Forest: MAE 4.76, R² 0.772
+- Gradient Boosting: MAE 4.84, R² 0.729
+
+**Top Demand Drivers:**
+1. Day of week (24.1%) - Weekends peak
+2. Christmas season (21.5%) - 2-3x spike
+3. Sentiment (13.1%) - News tone matters
+4. Temperature (8.8%) - Moderate = best
+5. Weekend flag (7.7%)
+
+---
+
 ## Data Collected (Complete)
 
 | Source | File | Records |
@@ -21,6 +43,7 @@
 | GDELT Articles | `data/raw/gdelt_articles_20260122.csv` | 159 articles |
 | GDELT Timeline | `data/raw/gdelt_timeline_20260122.csv` | 2,856 sentiment points |
 | Neighborhood Profiles | `outputs/reports/neighborhood_profiles.csv` | 3 segments |
+| Economic Indicators | `data/raw/economic_indicators_20260127.csv` | 360 months 🆕 |
 
 ## Data Partial (Needs Team)
 
@@ -32,32 +55,15 @@ See `data/raw/google_trends/DOWNLOAD_GUIDE.md` for instructions.
 
 ---
 
-## New Scripts Added (2026-01-27) 🆕
-
-### Data Collection
-| Script | Purpose | Requirements |
-|--------|---------|--------------|
-| `google_trends_serpapi.py` | Alternative trends collection | SerpAPI key (optional) |
-| `economic_indicators.py` | OECD, Eurostat, World Bank data | None (APIs are free) |
-| `social_signals.py` | YouTube, Reddit, Instagram | API keys (optional) |
-
-### Analysis
-| Script | Purpose |
-|--------|---------|
-| `data_merger.py` | Combines ALL sources into unified dataset |
-
----
-
 ## Scripts Overview
 
 ### Data Collection (`src/data_collection/`)
 - `weather.py` - Open-Meteo API ✅
 - `events.py` - Bundesliga + holidays ✅
 - `gdelt_news.py` - News sentiment ✅
-- `google_trends_chunked.py` - Rate limited, use manual download
-- `google_trends_serpapi.py` - Alternative with SerpAPI 🆕
-- `economic_indicators.py` - Economic data 🆕
-- `social_signals.py` - Social media signals 🆕
+- `economic_indicators.py` - OECD, Eurostat, World Bank ✅ 🆕
+- `google_trends_serpapi.py` - Alternative with SerpAPI
+- `social_signals.py` - YouTube, Reddit, Instagram
 - `reddit_collector.py` - Ready, needs API credentials
 
 ### Analysis (`src/analysis/`)
@@ -65,7 +71,8 @@ See `data/raw/google_trends/DOWNLOAD_GUIDE.md` for instructions.
 - `trends_weather_analysis_v2.py` - Trends + weather correlation ✅
 - `gdelt_analysis.py` - News sentiment analysis ✅
 - `neighborhood_segmentation.py` - Berlin segment profiles ✅
-- `data_merger.py` - Unified dataset creation 🆕
+- `data_merger.py` - Unified dataset creation
+- `demand_forecast.py` - **ML forecasting pipeline** ✅ 🆕
 
 ---
 
@@ -84,74 +91,61 @@ See `data/raw/google_trends/DOWNLOAD_GUIDE.md` for instructions.
 11. `gdelt_source_analysis.png`
 12. `neighborhood_segmentation.png`
 13. `neighborhood_demand_drivers.png`
+14. `demand_forecast_20260127.png` 🆕
 
 ---
 
-## Key Findings So Far
+## Key Findings
 
 1. **GDELT Sentiment:** Organic food coverage is positive (+0.32)
 2. **Weather:** 47% warm days (salads), 34% rainy days (convenience)
 3. **Trends:** Christmas spikes 2-3x, weak temp correlation (r=-0.12)
 4. **Segments:** Kreuzberg = primary target (85% organic affinity)
+5. **Forecast:** Weekends + Christmas = highest demand; temperature moderates effect 🆕
 
 ---
 
-## Immediate Next Steps
+## Forecast Summary (Feb-Apr 2026)
+
+```
+Forecast period: 2026-02-05 to 2026-04-29
+Average demand index: 49.4
+Peak demand: 59.2
+Lowest demand: 42.5
+
+Peak days trend toward WEEKENDS (Sat/Sun)
+```
+
+---
+
+## Next Steps
 
 ### 1. Team Action: Download Google Trends ⏰
 See `data/raw/google_trends/DOWNLOAD_GUIDE.md`
 
-**Deadline:** Before next team meeting
-
-### 2. After Team Uploads Trends
+### 2. Run Full Pipeline (After Trends)
 ```bash
-cd ACP-AGRICOM
-pip install -r requirements.txt
-python src/analysis/data_merger.py
+python src/analysis/data_merger.py      # Merge all data
+python src/analysis/demand_forecast.py  # Generate forecast
 ```
 
-### 3. Build Forecast Model
-- Merge all data sources
-- Create lag features
-- Train Prophet/ARIMA model
-- Generate neighborhood-specific forecasts
-
----
-
-## Meeting Preparation
-
-See `MEETING_PREP.md` for:
-- Team meeting agenda
-- Action items by person
-- Questions for mentor/AgriCom
-- Project timeline
-
----
-
-## Virtual Environment Setup
-
-```bash
-cd ACP-AGRICOM
-python -m venv venv
-source venv/bin/activate  # or: venv\Scripts\activate on Windows
-pip install -r requirements.txt
-```
+### 3. Prepare Presentation
+- Create slides for midpoint review
+- Include forecast charts
+- Highlight neighborhood recommendations
 
 ---
 
 ## Quick Commands
 
 ```bash
-# Check trends collection status
-python src/data_collection/google_trends_serpapi.py --status
-
-# Generate download guide
-python src/data_collection/google_trends_serpapi.py --guide
+# Run demand forecast
+python src/analysis/demand_forecast.py --weeks 12
 
 # Collect economic data
 python src/data_collection/economic_indicators.py
 
-# Merge all data (after trends uploaded)
+# Merge all data
 python src/analysis/data_merger.py
 
 # Run weather analysis
@@ -160,15 +154,6 @@ python src/analysis/weather_analysis.py
 # Run GDELT analysis
 python src/analysis/gdelt_analysis.py
 ```
-
----
-
-## Questions for Next Session
-
-1. Has team uploaded Google Trends data?
-2. Reddit API credentials available?
-3. Ready to build forecast model?
-4. Need presentation materials for midpoint?
 
 ---
 
