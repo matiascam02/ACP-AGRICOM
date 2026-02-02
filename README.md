@@ -3,8 +3,13 @@
 ## Project Overview
 Developing a methodology to predict organic produce demand in Berlin using alternative/external data signals (Google Trends, weather, events, social media) as leading indicators.
 
+**Scope:**
+Part 1: Brainstorming and evaluating signals to inform model based on defined Berlin market segmentation (ideation stage, literature review).
+
+Part 2: Validation of evaluated/brainstormed signals.
+
 **Client:** AgriCom
-**Timeline:** January - March 2026
+**Timeline:** January 1st - April 5th 2026
 **Team:** ESMT MBA Students
 
 ## Project Structure
