@@ -70,9 +70,9 @@ def load_events_data() -> pd.DataFrame:
     # Create event indicators by date
     event_summary = df.groupby('date').agg({
         'event_type': lambda x: ','.join(x.unique()) if len(x) > 0 else '',
-        'name': 'count'  # Number of events
+        'event_name': 'count'  # Number of events
     }).reset_index()
-    event_summary = event_summary.rename(columns={'name': 'event_count'})
+    event_summary = event_summary.rename(columns={'event_name': 'event_count'})
     
     # Add binary flags
     event_summary['has_bundesliga'] = event_summary['event_type'].str.contains('Bundesliga', na=False)
@@ -97,7 +97,7 @@ def load_gdelt_data() -> pd.DataFrame:
         
         # Aggregate by date
         gdelt_daily = df.groupby('date').agg({
-            'value': ['mean', 'std', 'count']  # Sentiment metrics
+            'Average Tone': ['mean', 'std', 'count']  # Sentiment metrics
         }).reset_index()
         gdelt_daily.columns = ['date', 'gdelt_sentiment_mean', 'gdelt_sentiment_std', 'gdelt_article_count']
         
@@ -204,7 +204,8 @@ def create_unified_dataset(
     all_dates = []
     for df in [df_weather, df_events, df_gdelt, df_trends]:
         if not df.empty and 'date' in df.columns:
-            all_dates.extend(df['date'].dropna().tolist())
+            dates = pd.to_datetime(df['date'].dropna())
+            all_dates.extend([d for d in dates if pd.notna(d)])
     
     if not all_dates:
         print("  ⚠️  No date data available")
