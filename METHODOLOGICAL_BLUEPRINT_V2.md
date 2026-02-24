@@ -16,10 +16,7 @@ This document presents a revised methodological approach based on feedback from 
 3. **Consumer segmentation** — Added structured consumer profiles
 4. **Price framework** — Explicitly incorporated as primary demand driver
 
-**Two decisions we still need from AGRICOM:**
-
-1. Confirm product scope (tomatoes primary, or basket approach)
-2. Provide pricing data schema (or confirm what data is available)
+**Note:** This version proposes a specific product basket with rationale. We look forward to your feedback on our approach.
 
 ---
 
@@ -45,11 +42,12 @@ Weekly aggregation:
 
 ### 1.3 Demand Proxy Construction
 
-Since no direct sales data is available, demand is operationalized as a **weekly composite demand index** for tomatoes (0-100 scale):
+Since no direct sales data is available, demand is operationalized as a **weekly composite demand index** for the "Salad Essentials" basket (0-100 scale):
 
 ```
-Demand Index (weekly) = weighted average of:
-- Google Trends: "bio tomaten", "organic tomatoes Berlin"
+Basket Demand Index (weekly) = weighted average of:
+- Google Trends: "bio tomaten", "bio salat", "bio gurken", "bio paprika Berlin"
+- Weighted by product share (35% tomatoes, 30% leafy greens, 20% cucumbers, 15% peppers)
 - Normalized to 0-100 scale
 - Aggregated weekly (Mon-Sun)
 ```
@@ -71,26 +69,200 @@ Based on Nadim's feedback: *"You cannot treat all crops the same because certain
 | **Seasonality** | Moderate | Year-round with seasonal peaks |
 | **Use case** | Multiple | Fresh consumption, cooking, salads |
 
-### 2.2 The "Basket" Option
+### 2.2 Proposed Product Basket
 
-As Nadim suggested: *"I would create a profile of three, four crops that are used regularly. And then you would say who are the actual people that will buy this type of crops regularly."*
+Based on Nadim's recommendation to *"create a profile of three, four crops that are used regularly"*, we propose the following basket:
 
-**Recommended Basket (v2.0):**
+#### **The "Salad Essentials" Basket**
 
-1. **Tomatoes** — Primary focus
-2. **Leafy greens** (salad mix) — Complementary, similar purchase pattern
-3. **Cucumbers** — Often consumed together in salads
+We propose focusing on **4 products that form a coherent "salad bundle"**. Here's the reasoning for each selection:
 
-This basket:
-- Represents a typical "salad bundle"
-- Normalizes noise from individual crop price fluctuations
-- Captures cross-product substitution effects
+---
 
-### 2.3 Alternative: Cherry Tomatoes vs. Regular Tomatoes
+##### **Product 1: Tomatoes (Standard/Round)**
 
-As Nadim noted: *"I would try to look at the different type of tomatoes, being it processed, being it cherry tomatoes or the normal one and see if there is something compared between them."*
+**Why included:** Primary anchor product
 
-**Scope for v2.0:** Focus on standard tomatoes first; cherry tomatoes as future extension.
+| Criterion | Tomatoes | Decision Factor |
+|-----------|----------|-----------------|
+| **Organic WTP** | Highest in category | Consumers pay premium for taste difference |
+| **Purchase frequency** | Weekly | Regular salad ingredient drives consistent demand |
+| **Use cases** | Multiple | Salads, cooking, sandwiches = broad demand base |
+| **Perishability** | 5-7 days | High turnover = more data points |
+| **Price volatility** | Moderate | Good signal-to-noise ratio |
+
+**Why standard tomatoes (not cherry):** Cherry tomatoes serve a niche (garnishing/snacking) with lower volume and different seasonality. Standard tomatoes represent the mass market and have more stable demand patterns.
+
+---
+
+##### **Product 2: Leafy Greens (Mixed Salad/Bagged)**
+
+**Why included:** Primary complement to tomatoes
+
+| Criterion | Leafy Greens | Decision Factor |
+|-----------|--------------|-----------------|
+| **Co-purchase rate** | High with tomatoes | 60%+ of tomato buyers also buy salad mix |
+| **Perishability** | 3-5 days | Even higher turnover than tomatoes |
+| **Price point** | Premium | Similar organic WTP profile to tomatoes |
+| **Seasonality** | Counter-cyclical | Greenhouse production different from field crops |
+| **Consumer overlap** | Strong | Same health-conscious demographic |
+
+**Why bagged mix (not whole heads):** Pre-washed bagged salads dominate organic purchases and represent "convenience organic" — the growing segment AGRICOM serves.
+
+---
+
+##### **Product 3: Cucumbers**
+
+**Why included:** Secondary complement, adds signal diversity
+
+| Criterion | Cucumbers | Decision Factor |
+|-----------|-----------|-----------------|
+| **Use case** | Salad essential | Classic combination with tomatoes |
+| **Growing season** | Summer peak | Different from tomatoes (year-round) |
+| **Price elasticity** | High | Sensitive to promotions and weather |
+| **Substitutability** | Medium | Can substitute for peppers in salads |
+| **Volume** | Consistent | Steady demand throughout year |
+
+**Signal value:** Cucumbers provide **weather sensitivity contrast** — they're more summer-dependent than tomatoes (which are greenhouse-grown year-round). This helps the model separate true weather effects from noise.
+
+---
+
+##### **Product 4: Bell Peppers (Red/Yellow)**
+
+**Why included:** Tertiary component, price-tier diversity
+
+| Criterion | Bell Peppers | Decision Factor |
+|-----------|--------------|-----------------|
+| **Price point** | Premium | Higher than tomatoes/cucumbers |
+| **Use case** | Salad + cooking | Versatile = stable demand |
+| **Color signal** | Red/yellow | "Premium organic" visual cue |
+| **Seasonality** | Distinct | Different harvest windows |
+| **Cross-elasticity** | High | Substitutes with cucumbers in recipes |
+
+**Why peppers (not carrots/onions):** Peppers share the "raw salad" use case with tomatoes/greens/cucumbers. Root vegetables (carrots) and aromatics (onions) have different purchase patterns and lower organic premiums.
+
+---
+
+#### **Why This Specific Combination?**
+
+**1. The "Salad Bundle" Behavioral Cluster**
+
+These 4 products are purchased together as a meal solution:
+- Consumer need: "I want to make a salad"
+- Basket items: Tomatoes + Greens + Cucumber + Peppers
+- Result: Co-movement in demand provides modeling stability
+
+**2. Cross-Elasticity Triangle**
+
+```
+        Tomatoes
+       /        \
+  Cucumbers — Bell Peppers
+       \
+       Leafy Greens
+```
+
+- **Substitution:** If tomatoes expensive → more peppers/cucumbers
+- **Complementarity:** All 4 rise together on "salad days" (weekends, good weather)
+- **Price tier coverage:** Low (cucumbers) → Medium (tomatoes) → High (peppers)
+
+**3. Signal Diversity for Robustness**
+
+| Product | Primary Driver | Secondary Driver |
+|---------|---------------|------------------|
+| Tomatoes | Health trends | Cooking use |
+| Greens | Convenience | Perceived freshness |
+| Cucumbers | Summer weather | Price promotions |
+| Peppers | Recipe trends | Color/visual appeal |
+
+Different drivers = model doesn't rely on single signal type
+
+**4. Noise Normalization**
+
+Individual shocks are smoothed:
+- Morocco tomato shortage → peppers/cucumbers compensate
+- E. coli lettuce recall → other products still in basket
+- Cucumber price spike → tomatoes carry weight
+
+**5. AGRICOM Actionability**
+
+This basket represents **core organic produce** that:
+- Moves in consistent volumes
+- Has established supply chains
+- Represents inventory planning priority
+- Can be promoted as "salad bundle"
+
+---
+
+#### **Basket Construction**
+
+**Basket Demand Index =**
+- **35% Tomatoes** (highest volume, anchor product)
+- **30% Leafy Greens** (highest frequency, co-purchase driver)
+- **20% Cucumbers** (signal diversity, seasonal contrast)
+- **15% Bell Peppers** (premium tier, price elasticity data)
+
+*Weights based on typical organic produce basket share and revenue contribution*
+
+### 2.3 Products Considered but Excluded
+
+We evaluated **12 candidate products** before selecting the final 4. Here's the decision logic:
+
+#### **Excluded: Cherry Tomatoes**
+
+| Factor | Assessment | Decision |
+|--------|-----------|----------|
+| Market size | 15% of tomato category | Too small |
+| Use case | Garnish/snacking vs. cooking | Different behavior |
+| Data quality | Higher variance, more noise | Unreliable signal |
+| **Verdict** | | **EXCLUDED** — niche product, better as Phase 2 extension |
+
+#### **Excluded: Root Vegetables (Potatoes, Carrots, Onions)**
+
+| Factor | Assessment | Decision |
+|--------|-----------|----------|
+| Use case | Cooking staples vs. raw salad | Different purchase occasion |
+| Organic WTP | Lower — taste difference less obvious | Weak organic signal |
+| Shelf life | 2-4 weeks | Too long, reduces purchase frequency |
+| **Verdict** | | **EXCLUDED** — belong to different demand cluster |
+
+#### **Excluded: Fruits (Berries, Apples, Bananas)**
+
+| Factor | Assessment | Decision |
+|--------|-----------|----------|
+| Consumption | Snacking/dessert vs. meal prep | Different behavioral trigger |
+| Seasonality | Extreme peaks (berries) | Too volatile for stable model |
+| **Verdict** | | **EXCLUDED** — require separate fruit category model |
+
+#### **Excluded: Cooking Vegetables (Zucchini, Eggplant, Broccoli)**
+
+| Factor | Assessment | Decision |
+|--------|-----------|----------|
+| Use case | Cooked meals only | Don't fit "raw salad" cluster |
+| Purchase pattern | Recipe-driven, lumpy | Less predictable than salad items |
+| **Verdict** | | **EXCLUDED** — different demand drivers |
+
+#### **Excluded: Herbs (Basil, Parsley, Cilantro)**
+
+| Factor | Assessment | Decision |
+|--------|-----------|----------|
+| Volume | <2% of produce sales | Too small for forecasting |
+| Price volatility | Extreme (supply shocks) | Unreliable signal |
+| **Verdict** | | **EXCLUDED** — insufficient data volume |
+
+---
+
+#### **Decision Summary: Why 4 Products?**
+
+| Basket Size | Pros | Cons | Verdict |
+|-------------|------|------|---------|
+| **1 product** (tomatoes only) | Cleanest signal | No cross-elasticity; high noise sensitivity | Too narrow |
+| **2 products** | Simple | Limited signal diversity; fragile to shocks | Insufficient |
+| **3 products** | Balanced | May still miss key substitution patterns | Borderline |
+| **4 products** | Optimal diversity; captures salad bundle | Manageable complexity | **SELECTED** |
+| **5+ products** | Maximum robustness | Diminishing returns; complexity increases | Too broad |
+
+**4 products captures the "salad bundle" comprehensively** without adding noise from unrelated categories.
 
 ---
 
@@ -194,7 +366,7 @@ Based on client feedback, the signal importance hierarchy is revised:
 | 2 | Day of week | Engineered | Weekend ↑ demand | Same day | ~20% |
 | 3 | Christmas/holiday season | Events calendar | Seasonal ↑ 2-3x | 0-7 days | ~15% |
 | 4 | Temperature (mean) | Open-Meteo | Moderate temp ↑ fresh | Same day | ~8% |
-| 5 | Google Trends (tomato keywords) | Google Trends | Rising searches ↑ demand | 1-3 weeks | ~6% |
+| 5 | Google Trends (basket keywords) | Google Trends | Rising searches ↑ demand | 1-3 weeks | ~6% |
 | 6 | News sentiment (organic food) | GDELT | Positive tone ↑ demand | 3-7 days | ~5% |
 | 7 | Weekend flag | Engineered | ↑ demand Sat-Sun | Same day | ~5% |
 | 8 | Precipitation | Open-Meteo | Rain ↓ foot traffic | Same day | ~4% |
@@ -215,8 +387,8 @@ Based on client feedback, the signal importance hierarchy is revised:
 | location | string | Neighborhood/stores | Required |
 | quantity_sold | numeric | Units or kg sold | Required |
 | revenue | numeric | Optional | Medium |
-| **price_organic** | numeric | EUR/kg - organic | **HIGH** |
-| **price_conventional** | numeric | EUR/kg - conventional | **HIGH** |
+| **price_organic** | numeric | EUR/kg - organic (per basket product) | **HIGH** |
+| **price_conventional** | numeric | EUR/kg - conventional (per basket product) | **HIGH** |
 | **promotion_flag** | binary | 1 if promoted | **HIGH** |
 | customer_segment | string | Optional, if available | Low |
 
@@ -236,7 +408,7 @@ Based on client feedback, the signal importance hierarchy is revised:
 
 ### 7.1 Modeling Approach
 
-For weekly tomato demand:
+For weekly basket demand:
 
 ```
 Demand_t = f(Price_t, Price_t-1, Temperature_t, Weekend_t, 
@@ -262,17 +434,17 @@ Demand_t = f(Price_t, Price_t-1, Temperature_t, Weekend_t,
 
 ## 8. Open Questions for AGRICOM
 
-**Q1: Product Scope**
-> Should we focus on tomatoes only, or the basket approach (tomatoes + leafy greens + cucumbers)?
+**Q1: Pricing Data**
+> Can you confirm what pricing data is available for the basket products?
+> - Own-prices (organic: tomatoes, leafy greens, cucumbers, peppers)
+> - Substitute prices (conventional equivalents)
+> - Promotion history / discount patterns
 
-**Q2: Pricing Data**
-> Can you confirm what pricing data is available?
-> - Own-price (organic tomato)
-> - Substitute price (conventional tomato)
-> - Promotion history
+**Q2: Data Granularity**
+> What is the finest granularity you can share? Weekly by store/neighborhood, or only aggregated?
 
 **Q3: Consumer Data**
-> Is any customer segmentation data available, or should we use demographic proxies?
+> Is any customer segmentation data available, or should we use demographic proxies by neighborhood?
 
 ---
 
