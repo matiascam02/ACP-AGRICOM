@@ -1,0 +1,5 @@
+product,beta_elasticity,std_error,p_value,ci_lower,ci_upper,r_squared,dw_stat,n_obs,seasonal_interaction,interpolation_uncertainty,data_source
+tomaten,-0.193004,0.151936,0.203981,-0.490794,0.104786,0.4058,1.4756,262,True,True,synthetic_from_food_cpi
+salat,-0.045858,0.054785,0.402562,-0.153233,0.061518,0.1939,1.5054,262,True,True,synthetic_from_food_cpi
+gurken,-0.045661,0.054739,0.404186,-0.152947,0.061624,0.1939,1.5054,262,True,True,synthetic_from_food_cpi
+paprika,-0.045631,0.054738,0.404492,-0.152914,0.061653,0.1939,1.5054,262,True,True,synthetic_from_food_cpi

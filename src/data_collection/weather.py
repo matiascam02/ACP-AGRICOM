@@ -211,9 +211,9 @@ def main():
     print(f"Location: Berlin ({BERLIN_LAT}, {BERLIN_LON})")
     print("=" * 60)
 
-    # Calculate date range (last 3 years)
+    # Date range: 2021-01-01 to present (to match GT panel period)
     end_date = datetime.now() - timedelta(days=7)  # Archive has ~1 week delay
-    start_date = end_date - timedelta(days=3*365)
+    start_date = datetime(2021, 1, 1)
 
     # Fetch historical data
     print("\n1. Fetching historical weather data...")

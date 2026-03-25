@@ -1,0 +1,4 @@
+variant_1,variant_2,MAD,spearman_rho,spearman_p,robust
+established,equal,2.817,0.9865,0.0,True
+established,bmel_calibrated,1.408,0.9983,0.0,True
+equal,bmel_calibrated,4.225,0.9772,0.0,True
