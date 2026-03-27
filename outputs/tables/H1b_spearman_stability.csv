@@ -1,5 +1,5 @@
 product,spearman_rho,p_value,stable,n_weeks_half1,n_weeks_half2,n_common_weeks
-tomaten,0.5817,6e-06,False,131,131,52
-salat,0.4987,0.000168,False,131,131,52
-gurken,0.4987,0.000168,False,131,131,52
-paprika,0.4987,0.000168,False,131,131,52
+tomaten,0.9145,0.0,True,133,132,52
+salat,0.311,0.024837,False,133,132,52
+gurken,0.8884,0.0,True,133,132,52
+paprika,0.8646,0.0,True,133,132,52

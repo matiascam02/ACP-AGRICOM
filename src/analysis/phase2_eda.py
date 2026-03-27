@@ -27,7 +27,7 @@ TABLE_DIR = PROJECT_DIR / 'outputs' / 'tables'
 FIGURE_DIR.mkdir(parents=True, exist_ok=True)
 TABLE_DIR.mkdir(parents=True, exist_ok=True)
 
-plt.style.use('seaborn-v0_8-whitegrid')
+plt.style.use('seaborn-whitegrid')
 
 PRODUCT_CONFIG = {
     'gt_bio_tomaten': {'label': 'Bio Tomaten', 'color': '#e74c3c'},

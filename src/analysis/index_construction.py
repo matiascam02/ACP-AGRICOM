@@ -31,7 +31,7 @@ FIGURE_DIR.mkdir(parents=True, exist_ok=True)
 TABLE_DIR.mkdir(parents=True, exist_ok=True)
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-plt.style.use('seaborn-v0_8-whitegrid')
+plt.style.use('seaborn-whitegrid')
 
 PRODUCTS = {
     'tomaten': {'gt_col': 'gt_norm_bio_tomaten', 'color': '#e74c3c', 'label': 'Bio Tomaten', 'basket_w': 0.35},

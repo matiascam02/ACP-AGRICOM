@@ -31,8 +31,6 @@ BASKET_PRODUCTS = {
     'bio_paprika_de': 'gt_bio_paprika',
 }
 
-# Fallback: if specific product GT not available, use bio_gemuese_de as proxy
-PROXY_FILE = 'bio_gemuese_de'
 
 
 def create_weekly_spine(start='2021-01-04', end=None):
@@ -50,68 +48,92 @@ def create_weekly_spine(start='2021-01-04', end=None):
 
 
 def load_gt_basket():
-    """Load 4 basket GT CSVs. Falls back to bio_gemuese_de as proxy for missing products."""
+    """Load 4 basket GT CSVs (monthly data from Google Trends).
+    
+    Each CSV has columns: "Time" (monthly date), "<keyword>" (interest 0-100).
+    Monthly values are forward-filled to weekly granularity via merge_asof.
+    No proxy fallback — all 4 product files are required.
+    """
     print("\nLoading Google Trends basket data...")
     gt_frames = {}
-    proxy_df = None
 
     for filename, col_name in BASKET_PRODUCTS.items():
         filepath = GT_DIR / f'{filename}.csv'
         if filepath.exists():
             df = pd.read_csv(filepath)
-            # Handle both pytrends format (date,keyword) and manual format
+            # Identify date and value columns (handle "Time" or "date" header)
             date_col = df.columns[0]
             value_col = df.columns[-1] if len(df.columns) > 1 else df.columns[0]
 
-            if date_col != value_col:
-                df = df.rename(columns={date_col: 'date', value_col: col_name})
-                df = df[['date', col_name]]
-            else:
+            if date_col == value_col:
+                print(f"  SKIP {filename}: single column")
                 continue
 
+            df = df.rename(columns={date_col: 'date', value_col: col_name})
+            df = df[['date', col_name]].dropna(subset=['date'])
             df['date'] = pd.to_datetime(df['date'])
-            # GT dates are typically Sundays — align to prior Monday
-            df['week_start'] = df['date'] - pd.to_timedelta(df['date'].dt.dayofweek, unit='D')
-            df = df[['week_start', col_name]]
-            gt_frames[col_name] = df
-            print(f"  Loaded {filename}: {len(df)} weeks")
+            df[col_name] = pd.to_numeric(df[col_name], errors='coerce')
+
+            # Detect granularity: if median gap > 20 days, treat as monthly
+            if len(df) > 2:
+                median_gap = df['date'].diff().median().days
+            else:
+                median_gap = 30
+
+            if median_gap > 20:
+                # Monthly data — keep as-is; will forward-fill to weekly later
+                df = df.rename(columns={'date': 'month_start'})
+                df = df.sort_values('month_start').reset_index(drop=True)
+                gt_frames[col_name] = ('monthly', df)
+                print(f"  Loaded {filename}: {len(df)} months (monthly, will forward-fill to weekly)")
+            else:
+                # Weekly data — align to Monday
+                df['week_start'] = df['date'] - pd.to_timedelta(df['date'].dt.dayofweek, unit='D')
+                df = df[['week_start', col_name]]
+                gt_frames[col_name] = ('weekly', df)
+                print(f"  Loaded {filename}: {len(df)} weeks")
         else:
-            print(f"  MISSING: {filename} — will use proxy")
+            print(f"  MISSING: {filename} — column will be NaN")
 
-    # Load proxy if needed
-    missing_products = [col for col in BASKET_PRODUCTS.values() if col not in gt_frames]
-    if missing_products:
-        proxy_path = GT_DIR / f'{PROXY_FILE}.csv'
-        if proxy_path.exists():
-            pdf = pd.read_csv(proxy_path)
-            date_col = pdf.columns[0]
-            value_col = pdf.columns[-1]
-            pdf = pdf.rename(columns={date_col: 'date', value_col: 'proxy_value'})
-            pdf['date'] = pd.to_datetime(pdf['date'])
-            pdf['week_start'] = pdf['date'] - pd.to_timedelta(pdf['date'].dt.dayofweek, unit='D')
-
-            for col_name in missing_products:
-                proxy_copy = pdf[['week_start', 'proxy_value']].copy()
-                proxy_copy = proxy_copy.rename(columns={'proxy_value': col_name})
-                gt_frames[col_name] = proxy_copy
-                print(f"  PROXY ({PROXY_FILE}) -> {col_name}")
-        else:
-            print(f"  WARNING: Proxy file {PROXY_FILE} not found. Missing GT columns will be NaN.")
-
-    # Merge all GT series
     if not gt_frames:
         print("  ERROR: No GT data loaded!")
         return pd.DataFrame(columns=['week_start'])
 
-    result = None
-    for col_name, df in gt_frames.items():
-        if result is None:
-            result = df
-        else:
-            result = result.merge(df, on='week_start', how='outer')
+    # Build a unified weekly GT frame
+    # Start with a full weekly spine covering all GT dates
+    all_dates = []
+    for col_name, (granularity, df) in gt_frames.items():
+        date_col = 'month_start' if granularity == 'monthly' else 'week_start'
+        all_dates.extend(df[date_col].tolist())
+    date_min = min(all_dates)
+    date_max = max(all_dates)
+    # Extend to cover the last month if monthly
+    gt_spine = pd.DataFrame({
+        'week_start': pd.date_range(
+            start=date_min - pd.Timedelta(days=date_min.dayofweek),
+            end=date_max + pd.Timedelta(days=31),
+            freq='W-MON'
+        )
+    })
 
-    result = result.sort_values('week_start').reset_index(drop=True)
-    return result
+    for col_name, (granularity, df) in gt_frames.items():
+        if granularity == 'monthly':
+            # Forward-fill monthly values onto weekly spine via merge_asof
+            df_sorted = df.sort_values('month_start')
+            gt_spine = pd.merge_asof(
+                gt_spine.sort_values('week_start'),
+                df_sorted,
+                left_on='week_start',
+                right_on='month_start',
+                direction='backward'
+            )
+            gt_spine = gt_spine.drop(columns=['month_start'], errors='ignore')
+        else:
+            # Weekly — direct merge
+            gt_spine = gt_spine.merge(df, on='week_start', how='left')
+
+    gt_spine = gt_spine.sort_values('week_start').reset_index(drop=True)
+    return gt_spine
 
 
 def load_weather_weekly():

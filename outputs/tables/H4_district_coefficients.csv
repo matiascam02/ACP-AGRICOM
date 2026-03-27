@@ -1,6 +1,6 @@
 district,segment_index,avg_gt_district,segment_index_coef,segment_index_pvalue,model_r2
-Mitte,0.6418,0.223,0.1137,0.0,0.4478
-Charlottenburg-Wilmersdorf,0.5511,0.1933,0.1137,0.0,0.4478
-Friedrichshain-Kreuzberg,0.5153,0.2528,0.1137,0.0,0.4478
-Neukoelln,0.2035,0.1041,0.1137,0.0,0.4478
-Pankow,0.432,0.1636,0.1137,0.0,0.4478
+Mitte,0.6418,0.4119,0.0968,2.1e-05,0.5082
+Charlottenburg-Wilmersdorf,0.5511,0.357,0.0968,2.1e-05,0.5082
+Friedrichshain-Kreuzberg,0.5153,0.4668,0.0968,2.1e-05,0.5082
+Neukoelln,0.2035,0.1922,0.0968,2.1e-05,0.5082
+Pankow,0.432,0.3021,0.0968,2.1e-05,0.5082
