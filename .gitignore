@@ -26,6 +26,9 @@ build/
 .DS_Store
 Thumbs.db
 
+# Word temp files
+~$*.docx
+
 # Environment variables
 .env
 .env.local
